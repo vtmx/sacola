@@ -29,6 +29,7 @@ calc_mult() {
     violeta)  echo $((10**7)) ;;
     cinza)    echo $((10**8)) ;;
     branco)   echo $((10**9)) ;;
+    *) echo Cor inválida >&2; exit 1 ;;
   esac
 }
 
