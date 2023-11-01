@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-cpf=$(tr -d '[.\-\ ]' <<< '134.567.890-12')
-n="${cpf:0:8}"
-o="${cpf:8:1}"
+cpf=$(tr -d '[.\-\ ]' <<< '987.654.321-00')
+cpfnum="${cpf::9}"
+dv="${cpf:9:2}"
 
-sede=$(case $o in
+sede=$(case "${cpf:8:1}" in
   1) echo Brasília ;;
   2) echo Belém ;;
   3) echo Fortaleza ;;
@@ -18,15 +18,23 @@ sede=$(case $o in
   *) echo Sede não existe; exit 1 ;;
 esac)
 
-for (( pos=0; pos<=${#n}-1; pos++ )); do
-  prod=$(( (pos+1) * ${cpf:pos:1} ))
-  let sum+=$(( (pos+1) * ${cpf:pos:1} ))
-  echo "$((pos+1)) * ${cpf:pos:1} = $prod"
+for (( i=10; i>=2; i-- )); do
+  prod=$(( ${cpfnum:pos:1} * i ))
+  let sum+=$(( ${cpfnum:pos:1} * i ))
+  (( pos++ ))
+(( sum % 11 < 2)) && dv1=0 || dv1=$(( 11 - sum % 11))
 done
-echo "  SUM = $sum"
 
-echo -e "\n cpf: $cpf
- fmt: $cpf
-   n: $n
-   o: $o
-sede: $sede"
+cpfnum=$cpfnum$dv1
+pos=0
+sum=0
+
+for (( i=11; i>=2; i-- )); do
+  prod=$(( ${cpfnum:pos:1} * i ))
+  let sum+=$(( ${cpfnum:pos:1} * i ))
+  (( pos++ ))
+done
+(( sum % 11 < 2 )) && dv2=0 || dv2=$(( 11 - sum % 11))
+
+echo -n " cpf: $cpf = "; (( $dv == $dv1$dv2 )) && echo -e "\033[0;32mválido\033[0m" || echo -e "\033[0;31minválido\033[0m"
+echo "sede: $sede"
