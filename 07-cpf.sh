@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cpf=$(tr -d '[.\-\ ]' <<< '987.654.321-00')
+[[ -z $1 ]] && read -p "Digite o CPF: " cpf || cpf=$1
+
+cpf=$(tr -d '[.\-\ ]' <<< $cpf)
 cpfnum="${cpf::9}"
 dv="${cpf:9:2}"
 
