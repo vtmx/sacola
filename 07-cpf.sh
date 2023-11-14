@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Verificar dados
 main() {
   if [[ -p /dev/stdin ]]; then
     while IFS= read line; do
