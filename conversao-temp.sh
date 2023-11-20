@@ -75,7 +75,9 @@ day2() {
 
 upt() {
   # Coleta somente os segundos do arquivo uptime
-  local v=$(grep -Eo '^[[:digit:]]*\b' /proc/uptime)
+  # local v=$(grep -Eo '^[[:digit:]]*\b' /proc/uptime)
+  : "$(</proc/uptime)"
+  v=${_%%.*}
 
   # Semanas
   local se=$(( v / 86400 * 7))
@@ -89,7 +91,6 @@ upt() {
   fi
 
   # Dias
-
   local d=$(( v / 86400 ))
 
   if [[ $d -le 0 ]]; then
