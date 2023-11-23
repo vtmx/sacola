@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
 # Verificar dados
+# O test -t 0 testa se existe algo na entrada, inclusive o pipe.
 main() {
-  if [[ -p /dev/stdin ]]; then
+  if [[ -t 0 ]]; then
+    [[ -z $1 ]] && read -p "Digite o CPF: " cpf || cpf=$1
+    cpf_check $cpf
+  else
     while IFS= read line; do
       cpf_check $line
     done
-  else
-    [[ -z $1 ]] && read -p "Digite o CPF: " cpf || cpf=$1
-    cpf_check $cpf
   fi
 }
 
