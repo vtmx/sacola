@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # str1='roma'
-# str2='omor' 
+# str2='amob'
 
 while true; do
   clear
@@ -53,3 +53,11 @@ if [[ $error ]]; then
 else
   echo "Anagrama"
 fi
+
+# Teste usando grep não funciona 100%
+# if [[ $(grep -o "[$str1]" <<< $str2 | wc -l) -eq ${#str1} ]]; then
+#   echo 'Anagrama'
+# else
+#   echo 'Não é anagrama'
+# fi
+
