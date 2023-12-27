@@ -26,3 +26,6 @@ done
 
 # Exibe resultado
 tput setaf 1; echo " Codigo: $result"
+
+# Reseta tput
+tput sgr0
